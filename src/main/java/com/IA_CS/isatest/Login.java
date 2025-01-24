@@ -12,6 +12,7 @@ import com.IA_CS.manager.FolderManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -110,10 +111,15 @@ public class Login extends javax.swing.JFrame {
                 camWin.setVisible ( true );
                 this.dispose ();
             }
-            else {
+                              
+            if ( db.isAdmin ( userId ) == 1 ) {
                 Administration adminWin = new Administration ();
                 adminWin.setVisible ( true );
                 this.dispose ();
+            }
+            
+            if  ( userId  == -1 ) {
+                JOptionPane.showMessageDialog(this, "ops...wrong username and/or password");
             }
 
         }

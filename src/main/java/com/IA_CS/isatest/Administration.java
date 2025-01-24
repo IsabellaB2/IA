@@ -238,7 +238,7 @@ public class Administration extends javax.swing.JFrame {
         jLabel5.setText("Enter Event ID");
 
         jButton7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton7.setText("Delete User");
+        jButton7.setText("Delete Event");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
