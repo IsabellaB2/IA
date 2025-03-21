@@ -103,7 +103,26 @@ public class Login extends javax.swing.JFrame {
         char[] passwordChar = tfPassword.getPassword ();
         String password = new String ( passwordChar );
         System.out.println ( username + " " + password );// debug output
+        
+        if (username.isEmpty()){
+                JOptionPane.showMessageDialog(this, "ops...wrong ");
+                return;
+            }
+            
+        if (password.isEmpty()){
+                JOptionPane.showMessageDialog(this, "ops...wrong username ");
+        return;    
+        }
+            
+            
+        if (username.isEmpty() & password.isEmpty()){
+                JOptionPane.showMessageDialog(this, "ops...wrong username and/or ");
+        return;    
+        }
+        
         try {
+                    
+                       
             int userId = db.getUserIDByLoginCredentials ( username , password );
 
             if ( db.isAdmin ( userId ) == 0 ) {
@@ -117,6 +136,7 @@ public class Login extends javax.swing.JFrame {
                 adminWin.setVisible ( true );
                 this.dispose ();
             }
+                       
             
             if  ( userId  == -1 ) {
                 JOptionPane.showMessageDialog(this, "ops...wrong username and/or password");
