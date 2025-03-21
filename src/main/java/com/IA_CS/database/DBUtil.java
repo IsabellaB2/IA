@@ -6,6 +6,7 @@ package com.IA_CS.database;
 
 import com.IA_CS.models.Event;
 import com.IA_CS.models.User;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,17 +39,44 @@ public class DBUtil extends DBConnection {
 
     }
 
+    
+    
+    
     public int getUserIDByLoginCredentials(String name, String password) throws SQLException, ClassNotFoundException {
-        Statement statement = getConnection().createStatement();
-
-        ResultSet resultSet = statement.executeQuery("SELECT ID FROM Users WHERE username = '" + name + "' AND password = '" + password + "'");
-        int id = -1;
-        while (resultSet.next()) {
-            id = resultSet.getInt("ID");
+    int id = -1;
+    
+    // SQL query using placeholders (?)
+    String query = "SELECT ID FROM Users WHERE username = ? AND password = ?";
+    
+    // Try-with-resources to ensure resources are closed properly
+    try (Connection connection = getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        
+        // Set values for placeholders
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, password);
+        
+        // Execute query
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                id = resultSet.getInt("ID");
+            }
         }
-        closeConnection();
-        return id;
     }
+    
+    return id;
+}
+//    public int getUserIDByLoginCredentials(String name, String password) throws SQLException, ClassNotFoundException {
+//        Statement statement = getConnection().createStatement();
+//
+//        ResultSet resultSet = statement.executeQuery("SELECT ID FROM Users WHERE username = '" + name + "' AND password = '" + password + "'");
+//        int id = -1;
+//        while (resultSet.next()) {
+//            id = resultSet.getInt("ID");
+//        }
+//        closeConnection();
+//        return id;
+//    }
 
     public void createEvent(String startTime, String endTime, String duration) throws SQLException, ClassNotFoundException {
         String insertQuery = "INSERT INTO Events (Start, End, Duration) VALUES (?, ?, ?)";
