@@ -247,7 +247,7 @@ public class Cameras extends javax.swing.JFrame {
         }
 
         detector = new WebcamMotionDetector ( webcam );
-        detector.setInterval ( 10000 ); // Check for motion every 30 second
+        detector.setInterval ( 5000 ); // Check for motion every 30 second
 
         detector.addMotionListener ( new WebcamMotionListener () {
             @Override
